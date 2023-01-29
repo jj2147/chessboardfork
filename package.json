@@ -3,7 +3,7 @@
   "version": "2.0.8",
   "description": "The React Chessboard Library used at ChessOpenings.co.uk. Inspired and adapted from the unmaintained Chessboard.jsx.",
   "author": "Ryan Gregory <ryangregory.dev@outlook.com>",
-  "repository": "https://github.com/Clariity/react-chessboard",
+  "repository": "https://github.com/jj2147/chessboardfork",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
