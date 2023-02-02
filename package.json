@@ -16,7 +16,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "serve-storybook": "serve storybook-static"
+    "serve-storybook": "serve storybook-static",
+    "prepare": "npm run build"
   },
   "keywords": [
     "react",
