@@ -54,9 +54,10 @@ export function Board() {
           );
           const to = getRelativeCoords(boardOrientation, boardWidth, arrow[1]);
 
+          /////////////////////////////////REMOVED ARROWHEAD/////////////////////////////////
           return (
             <Fragment key={`${arrow[0]}-${arrow[1]}`}>
-              <defs>
+              {/* <defs>
                 <marker
                   id="arrowhead"
                   markerWidth="2"
@@ -70,7 +71,7 @@ export function Board() {
                     style={{ fill: customArrowColor }}
                   />
                 </marker>
-              </defs>
+              </defs> */}
               <line
                 x1={from.x}
                 y1={from.y}
@@ -78,7 +79,7 @@ export function Board() {
                 y2={to.y}
                 style={{
                   stroke: customArrowColor,
-                  strokeWidth: boardWidth / 36,
+                  strokeWidth: boardWidth / 72,
                 }}
                 markerEnd="url(#arrowhead)"
               />
