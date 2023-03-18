@@ -79,7 +79,7 @@ export function Board() {
                 y2={to.y}
                 style={{
                   stroke: customArrowColor,
-                  strokeWidth: boardWidth / 150,
+                  strokeWidth: boardWidth / 50,
                 }}
                 markerEnd="url(#arrowhead)"
               />
