@@ -105,6 +105,14 @@ export type DropOffBoardAction = "snapback" | "trash";
 export type Coords = { x: number; y: number };
 
 export type ChessboardProps = {
+  
+  /**
+   * Highlighted squares
+   * @default []
+   */
+  highlightedSquares?: Square[];
+
+
   /**
    * Time in milliseconds for piece to slide to target square. Only used when the position is programmatically changed. If a new position is set before the animation is complete, the board will cancel the current animation and snap to the new position.
    * @default 300

@@ -10,6 +10,7 @@ type SquareProps = {
   square: Sq;
   squareColor: "white" | "black";
   squareHasPremove: boolean;
+  squareHasHighlight:boolean;
 };
 
 export function Square({
@@ -17,6 +18,7 @@ export function Square({
   squareColor,
   setSquares,
   squareHasPremove,
+  squareHasHighlight,
   children,
 }: SquareProps) {
   const squareRef = useRef<HTMLDivElement>(null);
@@ -74,7 +76,7 @@ export function Square({
     ...(squareColor === "black"
       ? customDarkSquareStyle
       : customLightSquareStyle),
-    ...(squareHasPremove &&
+    ...((squareHasPremove || squareHasHighlight) &&
       (squareColor === "black"
         ? customPremoveDarkSquareStyle
         : customPremoveLightSquareStyle)),

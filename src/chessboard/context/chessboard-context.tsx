@@ -65,6 +65,7 @@ interface ChessboardProviderContext {
   clearCurrentRightClickDown: () => void;
   currentPosition: BoardPosition;
   handleSetPosition: (sourceSq: Square, targetSq: Square, piece: Piece) => void;
+  highlights: Square[];
   lastPieceColour: string | undefined;
   onRightClickDown: (square: Square) => void;
   onRightClickUp: (square: Square) => void;
@@ -103,17 +104,17 @@ export const ChessboardProvider = forwardRef(
       dropOffBoardAction = "snapback",
       id = 0,
       isDraggablePiece = () => true,
-      getPositionObject = () => {},
-      onArrowsChange = () => {},
-      onDragOverSquare = () => {},
-      onMouseOutSquare = () => {},
-      onMouseOverSquare = () => {},
-      onPieceClick = () => {},
-      onPieceDragBegin = () => {},
-      onPieceDragEnd = () => {},
+      getPositionObject = () => { },
+      onArrowsChange = () => { },
+      onDragOverSquare = () => { },
+      onMouseOutSquare = () => { },
+      onMouseOverSquare = () => { },
+      onPieceClick = () => { },
+      onPieceDragBegin = () => { },
+      onPieceDragEnd = () => { },
       onPieceDrop = () => true,
-      onSquareClick = () => {},
-      onSquareRightClick = () => {},
+      onSquareClick = () => { },
+      onSquareRightClick = () => { },
       position = "start",
       showBoardNotation = true,
       snapToCursor = true,
@@ -139,6 +140,9 @@ export const ChessboardProvider = forwardRef(
 
     // ref used to access current value during timeouts (closures)
     const premovesRef = useRef(premoves);
+
+    ///////////////////HIGHLIGHTS/////////////////////////HIGHLIGHTS////////////////////////HIGHLIGHTS/////
+    const [highlights, setHighlights] = useState<Square[]>([]);
 
     // current right mouse down square
     const [currentRightClickDown, setCurrentRightClickDown] =
@@ -263,7 +267,7 @@ export const ChessboardProvider = forwardRef(
         (arePremovesAllowed &&
           (lastPieceColour === piece[0] ||
             premovesRef.current.filter((p: Premove) => p.piece[0] === piece[0]).length >
-              0))
+            0))
       ) {
         const oldPremoves: Premove[] = [...premovesRef.current];
         oldPremoves.push({ sourceSq, targetSq, piece });
@@ -354,8 +358,20 @@ export const ChessboardProvider = forwardRef(
           setCurrentRightClickDown(undefined);
           clearPremovesOnRightClick && clearPremoves(false);
           onSquareRightClick(square);
+
+          //if square is not highlighted, add highlight
+          if (highlights.indexOf(square) < 0) {
+            setHighlights((prev) => [...prev, square]);
+          } else {
+            setHighlights((prev) => {
+              const newHighlights = [...prev];
+              newHighlights.splice(highlights.indexOf(square), 1);
+              return newHighlights;
+            });
+          }
           return;
         }
+
 
         // if arrow already exists then it needs to be removed
         for (const [i] of arrows.entries()) {
@@ -415,6 +431,7 @@ export const ChessboardProvider = forwardRef(
       clearCurrentRightClickDown,
       currentPosition,
       handleSetPosition,
+      highlights,
       lastPieceColour,
       onRightClickDown,
       onRightClickUp,

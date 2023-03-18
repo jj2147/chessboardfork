@@ -17,6 +17,7 @@ export function Squares() {
     id,
     premoves,
     showBoardNotation,
+    highlights
   } = useChessboard();
 
   return (
@@ -47,6 +48,8 @@ export function Squares() {
                 (p) => p.targetSq === square
               );
 
+              const squareHasHighlight = highlights.find(h=>h===square);
+
               return (
                 <Square
                   key={`${c}${r}`}
@@ -54,6 +57,7 @@ export function Squares() {
                   squareColor={squareColor}
                   setSquares={setSquares}
                   squareHasPremove={!!squareHasPremove}
+                  squareHasHighlight={!!squareHasHighlight}
                 >
                   {currentPosition[square] && (
                     <Piece
