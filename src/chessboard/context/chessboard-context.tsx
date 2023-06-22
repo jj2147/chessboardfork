@@ -102,6 +102,8 @@ export const ChessboardProvider = forwardRef(
       customPremoveLightSquareStyle = { backgroundColor: "#BD2828" },
       customSquareStyles,
       dropOffBoardAction = "snapback",
+      /////////////////////////HIGHLIGHTS//////////////////////////HIGHLIGHTS//////////////////////////////
+      highlightedSquares,
       id = 0,
       isDraggablePiece = () => true,
       getPositionObject = () => { },
@@ -250,6 +252,12 @@ export const ChessboardProvider = forwardRef(
     useEffect(() => {
       onArrowsChange(arrows);
     }, [arrows]);
+
+    ///////////////////////////////////////////////HIGHLIGHTS//////////////////////////HIGHLIGHTS//////////////////////////////////
+    useEffect(() => {
+      if (highlightedSquares)
+        setHighlights(highlightedSquares);
+    })
 
     // handle drop position change
     function handleSetPosition(sourceSq: Square, targetSq: Square, piece: Piece) {
