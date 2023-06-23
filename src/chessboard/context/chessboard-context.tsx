@@ -102,7 +102,6 @@ export const ChessboardProvider = forwardRef(
       customPremoveLightSquareStyle = { backgroundColor: "#BD2828" },
       customSquareStyles,
       dropOffBoardAction = "snapback",
-      /////////////////////////HIGHLIGHTS//////////////////////////HIGHLIGHTS//////////////////////////////
       highlightedSquares,
       id = 0,
       isDraggablePiece = () => true,
@@ -257,7 +256,7 @@ export const ChessboardProvider = forwardRef(
     useEffect(() => {
       if (highlightedSquares)
         setHighlights(highlightedSquares);
-    })
+    }, [highlightedSquares]);
 
     // handle drop position change
     function handleSetPosition(sourceSq: Square, targetSq: Square, piece: Piece) {
@@ -361,13 +360,15 @@ export const ChessboardProvider = forwardRef(
     function onRightClickUp(square: Square) {
       if (!areArrowsAllowed) return;
       if (currentRightClickDown) {
+
         // same square, don't draw an arrow, but do clear premoves and run onSquareRightClick
         if (currentRightClickDown === square) {
           setCurrentRightClickDown(undefined);
           clearPremovesOnRightClick && clearPremoves(false);
           onSquareRightClick(square);
 
-          //if square is not highlighted, add highlight
+          //Highlight / unhighlight square on right click
+
           if (highlights.indexOf(square) < 0) {
             setHighlights((prev) => [...prev, square]);
           } else {
@@ -377,10 +378,11 @@ export const ChessboardProvider = forwardRef(
               return newHighlights;
             });
           }
+
           return;
         }
-
-
+        
+        //different square, handle arrows
         // if arrow already exists then it needs to be removed
         for (const [i] of arrows.entries()) {
           if (arrows[i][0] === currentRightClickDown && arrows[i][1] === square) {
@@ -395,6 +397,7 @@ export const ChessboardProvider = forwardRef(
 
         // different square, draw an arrow
         setArrows((oldArrows) => [...oldArrows, [currentRightClickDown, square]]);
+
       } else setCurrentRightClickDown(undefined);
     }
 
